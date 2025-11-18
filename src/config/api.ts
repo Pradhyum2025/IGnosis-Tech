@@ -1,18 +1,7 @@
 // ---------------------------------------------------------------------
-// <copyright file="utils.ts" company="iGnosis Tech">
+// <copyright file="api.ts" company="iGnosis Tech">
 // Copyright (c) iGnosis Tech. All rights reserved.
 // </copyright>
 // ---------------------------------------------------------------------
 
-export function cn(...classes: Array<string | undefined | null | false>) {
-  return classes.filter(Boolean).join(' ')
-}
-
-
-
-
-
-
-
-
-
+export const API_BASE = import.meta.env.VITE_API_BASE || '';

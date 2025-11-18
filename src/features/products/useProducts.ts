@@ -6,7 +6,9 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import type { ListResponse, Product } from '../../types'
-import { API_BASE } from "../../utils/apiBase";
+import { API_BASE } from '@/config/api'
+
+
 
 type ProductsQueryParams = {
   query?: string

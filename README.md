@@ -85,6 +85,14 @@ You can adjust mock behavior in `src/mocks/handlers.ts`.
 
 ---
 
+### Environment Variables
+
+The app reads `VITE_API_BASE` to decide which base path to use for API calls.  
+The included `.env` sets `VITE_API_BASE=""` for local MSW interception, while `.env.production`
+sets `VITE_API_BASE="/api"` for Vercel so requests proxy through `/api/*`.
+
+---
+
 ## ✅ What We Evaluate
 
 - **Code quality & structure** — components, hooks, state management, TypeScript hygiene  

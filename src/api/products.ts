@@ -20,7 +20,7 @@ export default function handler(req:any, res:any) {
 
   const start = (pageNum - 1) * limitNum;
   const paginated = filtered.slice(start, start + limitNum);
-
+  console.log("paginated --->",paginated)
   return res.status(200).json({
     data: paginated,
     total: filtered.length,
