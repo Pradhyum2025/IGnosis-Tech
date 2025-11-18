@@ -56,22 +56,25 @@ export function ProductList() {
   }, [data?.items, sort])
 
   const totalPages = data ? Math.max(1, Math.ceil(data.total / PAGE_LIMIT)) : 1
-
+ 
+  // Handle Query change
   const handleQueryChange = (nextValue: string) => {
     setQuery(nextValue)
     setPage(1)
   }
-
+  
+  // handle Category Change
   const handleCategoryChange = (nextValue: (typeof CATEGORY_OPTIONS)[number]) => {
     setCategory(nextValue)
     setPage(1)
   }
 
+  // handle Sort Change
   const handleSortChange = (nextValue: (typeof SORT_OPTIONS)[number]['value']) => {
     setSort(nextValue)
   }
 
-
+  // handle Reset
   const handleReset = () => {
     setQuery('')
     setCategory('all')
@@ -87,7 +90,7 @@ export function ProductList() {
       className="py-3 px-1 bg-white border-5  min-h-[calc(100vh-200px)]"
     >
       <div className="mx-auto space-y-6 pb-20">
-        {/* Products toolbar like category filter , Search , Sorting */}
+        {/* Products toolbar like category filter , Search , Sorting by IGnosis */}
         <ResponsiveFilters >
         <ProductToolbar
           query={query}
@@ -103,7 +106,7 @@ export function ProductList() {
         </ResponsiveFilters>
 
           
-        {/* Render Products Listings */}
+        {/* Render Products Listings by IGnosis */}
         <div aria-live="polite" className="space-y-4">
           {isFetching && !isPending ? (
             <p className="text-sm text-brand-600" role="status">
@@ -120,7 +123,7 @@ export function ProductList() {
         </div>
       </div>
       
-      {/* Pagination - Sticky at bottom of content area */}
+      {/* Pagination - Sticky at bottom of content area by IGnosis   */}
       <div className="fixed bottom-0 left-0 right-0">
         <PaginationControls
           page={page}

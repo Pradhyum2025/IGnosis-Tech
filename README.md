@@ -1,132 +1,132 @@
-# React Coding Exercise — Listings Manager
+# React Coding Exercise — Listings Manager (Final Submission)
 
-Thank you for your interest in joining the **iGnosis Tech Engineering Team**.  
-This repository contains a coding exercise used in our recruitment process for frontend engineering roles.
-
-Please complete the exercise below, upload your code to a **personal GitHub repository**, and share the link with us.  
-
-⚠️ **Important:** Please **do not fork this repository**. Forks on GitHub are public and may expose your solution to other candidates.  
-Instead, download or clone the repo locally, then push your solution to a new repository in your own account.
+Thank you for reviewing my solution for the **iGnosis Tech Engineering Team**. This README explains how to run the project, the decisions behind the implementation, and what I would improve with more time. My goal is to make the code easy to understand, predictable to run, and simple to evaluate.
 
 ---
 
-## Prerequisites
+## 🚀 Getting Started
 
-- **Node.js v22.x** (repo ships with `.nvmrc`, run `nvm use`)  
-- **Yarn**
+### Prerequisites
 
----
+* **Node.js v22.x** (the project includes an `.nvmrc` file)
+* **npm** (used for this solution)
 
-## Getting Started
+### Installation & Setup
 
-~~~bash
+```bash
 nvm use
-yarn install
-# one-time setup for MSW
+npm install
+# one-time MSW setup
 npx msw init public --save
-yarn dev
-~~~
+npm run dev
+```
 
-Open http://localhost:5173 in your browser.
+Then visit: **[http://localhost:5173](http://localhost:5173)**
 
-> Note: Navigating directly to `/products?...` in the address bar will return the SPA’s HTML.  
-> Use DevTools → Network → Fetch/XHR (or `fetch('/products')` in the console) to view the mocked JSON responses.
-
----
-
-## 📌 Coding Exercise
-
-You will build a small **Listings Manager** for products (think simple marketplace admin).  
-A minimal API is mocked using **MSW** so the app runs offline and tests are deterministic.
-
-The list and toolbar are intentionally unimplemented. Build the structure and styling you think is appropriate.
-
-When the starter runs, you’ll see placeholder notes on the Products and Details pages. Replace them as you implement the UI and data flow.
-
-
-### Timebox
-
-Please spend **no more than 3–4 hours** on this exercise.  
-Focus on the **core requirements first**. We are more interested in how you approach the problem than in feature completeness.  
-
-Completing all core requirements is considered a strong submission.
+> If you open `/products?...` directly in the browser, Vite will serve the main HTML file.
+> To view actual API responses, check the DevTools → Network tab.
 
 ---
 
-### 🎯 Core Requirements
+## 📌 About the Exercise
 
-- **Product List**
-  - Display a **paginated list** of products.
-  - Each product shows: name, price, category, and stock status.
-  - Sorting (by price, name, etc.)
-- **Product Details**
-  - Allow users to view details of a product on a separate route (or modal).
-- **Search & Filter**
-  - Provide search by product name.
-  - Allow filtering by category.
-- **States**
-  - Handle loading, empty, and error states gracefully.
-- **Accessibility**
-  - Implement search, filter, and pagination controls with accessible markup (labels, roles, keyboard navigation).
+This project is a simple **Listings Manager** where you can:
 
-👉 The structure for the toolbar (search, filter, sort) is **intentionally not provided** — please design and implement this yourself (you may use component libraries).
+* Browse products with pagination
+* Search by name
+* Filter by category
+* Sort results
+* View product details
+
+The API is fully mocked using **MSW**, so everything works offline and the data is predictable.
 
 ---
 
-## 🔗 API (Mocked with MSW)
+## 🔗 Mock API Endpoints
 
-The mock server provides these endpoints:
+These endpoints are intercepted by MSW:
 
-- `GET /products?query=&category=&page=1&limit=10`  
-- `GET /products/:id`  
+* `GET /products?query=&category=&page=1&limit=10`
+* `GET /products/:id`
 
-Seed data is in `src/mocks/data/products.json`.  
-You can adjust mock behavior in `src/mocks/handlers.ts`.
-
----
-
-### Environment Variables
-
-The app reads `VITE_API_BASE` to decide which base path to use for API calls.  
-The included `.env` sets `VITE_API_BASE=""` for local MSW interception, while `.env.production`
-sets `VITE_API_BASE="/api"` for Vercel so requests proxy through `/api/*`.
+The seed data is stored in `src/mocks/data/products.json`, and you can adjust the API behaviour through `src/mocks/handlers.ts`.
 
 ---
 
-## ✅ What We Evaluate
+## 🌱 Environment Variables
 
-- **Code quality & structure** — components, hooks, state management, TypeScript hygiene  
-- **UX & product thinking** — sensible defaults, empty/loading/error states, responsiveness, accessibility  
-- **UI skills** — how you design and implement the search/filter/sorting controls without a prebuilt scaffold  
-- **Testing** — provide at least a couple of meaningful tests that demonstrate your testing approach  
-- **Communication** — notes in your README about design decisions, trade-offs, and what you’d do with more time  
+The project uses one key variable:
 
----
+```
+VITE_API_BASE
+```
 
-## 📤 Submission Instructions
+* **Local development** → empty string (`""`) so MSW intercepts all requests
+* **Production (Vercel)** → `/api` which allows Vercel to route through its serverless layer
 
-1. Complete the exercise.  
-2. Push your solution to a **personal GitHub repo** (do not fork this one).  
-3. Share the repository link through the Google Form (please check your email)
+This keeps both environments consistent without changing code.
 
 ---
 
-## Solution Notes
+## 🧠 Approach & Design Decisions
 
-### Design Decisions
-- Separated data fetching into `useProducts` and `useProductDetails` so list and details pages stay lean and focus on UI concerns.
-- Product list uses a compact toolbar grid plus card layout to keep controls reachable on mobile while still supporting search, category filtering, sorting, and pagination.
-- Product details reuses the same visual language (rounded containers, brand accents) and relies on semantic landmarks (`section`, `article`, `dl`) for better accessibility.
+Here’s how I structured the solution:
 
-### Trade-offs
-- React Query handles caching and stale data logic; Redux or another global store felt unnecessary for this small surface and would add boilerplate.
-- Sorting currently happens client-side after each page loads. Moving sorting to the API would avoid extra work on the client, but MSW mocks kept the implementation simple.
+### 📁 Code Organization
 
-### Improvements with More Time
-- Add column-based layout variant for the list so dense data-entry tasks can switch between cards and tables.
-- Support multi-select filters (e.g., stock status, price ranges) and persist toolbar state in the URL for sharable views.
-- Enhance animations/skeletons and introduce optimistic UI for quick stock toggles or edits.
+* **`useProducts`** and **`useProductDetails`** manage all data fetching using React Query.
+* Pages focus only on displaying UI and handling user actions.
+* Toolbar is custom-built to support search, filter, sorting, and pagination in a clean and compact layout.
 
-### Testing Approach
-- Vitest + React Testing Library verify critical user flows: list rendering, search/filter interactions, and loading product details—including the not-found branch.
-- MSW keeps tests close to production behavior by exercising the same mocked endpoints used in development.
+### 🎨 UI & UX Decisions
+
+* Kept spacing, grouping, and hierarchy simple and consistent.
+* Included loading, empty, and error states to avoid sudden UI jumps.
+* Made the layout fully responsive — mobile users get a clean, easy-to-reach toolbar.
+* Used semantic HTML (`section`, `article`, `dl`) to improve accessibility.
+
+### ⚙️ Technical Choices
+
+* **React Query** for caching and background refetching
+* **Client-side sorting** (simpler with MSW; API sorting would be ideal in a real backend)
+* **TypeScript** for safety and cleaner maintenance
+
+---
+
+## 🔍 Trade-offs
+
+* Stayed focused on the core requirements within the 3–4 hour timebox.
+* Sorting happens on the client per page. A backend implementation would scale better.
+* Avoided global state libraries because React Query was enough for this scope.
+
+---
+
+## 🌟 What I Would Improve with More Time
+
+* Add a **table layout option** for dense admin workflows.
+* More advanced filters: stock status, price range, multi-category.
+* Preserve search/filter state in the URL for shareable views.
+* Add optimistic updates for quick edits.
+* Add subtle transitions or skeleton loaders.
+
+---
+
+## 🧪 Testing
+
+Used **Vitest + React Testing Library** to verify:
+
+* Products list rendering
+* Search and filter interactions
+* Pagination behaviour
+* Product details loading and not-found case
+
+MSW ensures the tests behave exactly like development mode.
+
+---
+
+## 📤 Submission
+
+* The complete solution has been pushed to my personal GitHub repository.
+* This README explains all instructions and design decisions clearly and simply.
+
+Thank you for reviewing my submission. I'm happy to discuss anything in more detail!

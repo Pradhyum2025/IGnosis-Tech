@@ -132,6 +132,7 @@ export const ProductModal: React.FC = () => {
             </>
           ) : null}
         </div>
+
       </div>
     </div>
   );
