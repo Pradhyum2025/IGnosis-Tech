@@ -8,7 +8,6 @@ import React from "react"
 import { Button } from "../components/ui/button"
 import { SkeletonCard } from "./SkeletonCard"
 import { Product } from "../types"
-import { ProductModal } from "./ProductModal"
 import { ProductCard } from "./ProductCard"
 
 

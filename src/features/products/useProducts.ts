@@ -6,6 +6,7 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import type { ListResponse, Product } from '../../types'
+import { API_BASE } from "../../utils/apiBase";
 
 type ProductsQueryParams = {
   query?: string
@@ -28,7 +29,7 @@ async function fetchProducts(params: ProductsQueryParams) {
     searchParams.set('category', params.category)
   }
 
-  const response = await fetch(`/products?${searchParams.toString()}`)
+  const response = await fetch(`${API_BASE}/products?${searchParams.toString()}`)
 
   if (!response.ok) {
     throw new Error('Unable to load products right now.')
@@ -42,7 +43,7 @@ async function fetchProductDetails(id?: string) {
     throw new Error('Missing product id.')
   }
 
-  const response = await fetch(`/products/${id}`)
+  const response = await fetch(`${API_BASE}/products/${id}`)
 
   if (response.status === 404) {
     return null

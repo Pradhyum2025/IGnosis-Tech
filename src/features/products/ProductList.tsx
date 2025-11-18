@@ -22,6 +22,7 @@ const SORT_OPTIONS = [
 ] as const
 
 export function ProductList() {
+  
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<(typeof CATEGORY_OPTIONS)[number]>('all')
   const [sort, setSort] = useState<(typeof SORT_OPTIONS)[number]['value']>('name-asc')
@@ -36,6 +37,7 @@ export function ProductList() {
 
   const sortedProducts = useMemo(() => {
     if (!data?.items) return []
+
     return [...data.items].sort((a, b) => {
       if (sort === 'name-asc') {
         return a.name.localeCompare(b.name)
